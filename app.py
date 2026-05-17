@@ -1,14 +1,11 @@
 import streamlit as st
 import google.generativeai as genai
 
-# 1. ดึง API Key จาก Secrets
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-# 2. ตั้งค่าหน้าตา UI
 st.set_page_config(page_title="OKJ AI Agent", layout="wide")
 st.markdown("<h4 style='text-align: center;'>✨ Ask AI about financial savings...</h4>", unsafe_allow_html=True)
 
-# 3. ระบบรับข้อความ
 user_input = st.chat_input("พิมพ์คำถามของคุณที่นี่ เช่น 'สรุปปัญหาขยะอาหารเดือนนี้ให้หน่อย'")
 
 if user_input:
@@ -17,18 +14,13 @@ if user_input:
     
     with st.chat_message("assistant"):
         try:
-            # ---------------------------------------------------------
-            # ไม้ตายสุดยอด: สั่งให้ระบบค้นหาชื่อโมเดลที่มีอยู่จริงอัตโนมัติ
-            # ---------------------------------------------------------
             working_model_name = None
             
-            # ลูปถาม Google ว่ามีโมเดลไหนให้ใช้บ้าง
             for m in genai.list_models():
                 if 'generateContent' in m.supported_generation_methods:
                     working_model_name = m.name
                     break # เจอตัวแรกที่ใช้ได้ปุ๊บ เอาตัวนั้นเลย!
             
-            # ถ้าหาโมเดลเจอ ให้เริ่มประมวลผล
             if working_model_name:
                 model = genai.GenerativeModel(working_model_name)
                 
