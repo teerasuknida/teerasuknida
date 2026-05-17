@@ -6,8 +6,7 @@ genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 st.set_page_config(page_title="OKJ AI Agent", layout="wide")
 st.markdown("<h4 style='text-align: center;'>✨ Ask AI about financial savings...</h4>", unsafe_allow_html=True)
 
-model = genai.GenerativeModel('gemini-1.5-flash')
-
+model = genai.GenerativeModel('gemini-pro')
 user_input = st.chat_input("พิมพ์คำถามของคุณที่นี่ เช่น 'สรุปปัญหาขยะอาหารเดือนนี้ให้หน่อย'")
 
 if user_input:
