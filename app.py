@@ -2,7 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 
 # ใส่ API Key ของ Gemini
-genai.configure(api_key="AIzaSyBGhFI3cToqMLJFVde-Dkdmg_IWdSUZWvM")
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 st.set_page_config(page_title="OKJ AI Agent", layout="wide")
 st.markdown("<h4 style='text-align: center;'>✨ Ask AI about financial savings...</h4>", unsafe_allow_html=True)
 
@@ -17,8 +17,7 @@ system_instruction = """
 จงตอบคำถามผู้บริหารด้วยความกระชับ เป็นมืออาชีพ และเน้นตัวเลขทางการเงิน
 """
 
-model = genai.GenerativeModel('gemini-1.5-flash', system_instruction=system_instruction)
-
+model = genai.GenerativeModel('gemini-1.5-flash-latest', system_instruction=system_instruction)
 # ระบบรับข้อความแชท
 user_input = st.chat_input("พิมพ์คำถามของคุณที่นี่ เช่น 'สรุปปัญหาขยะอาหารเดือนนี้ให้หน่อย'")
 
